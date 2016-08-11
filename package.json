@@ -3,12 +3,18 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "accept-language": "^2.0.17",
-    "express": "^4.14.0",
-    "useragent": "^2.1.9"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eric8ah/freeCodeCamp-urlProject.git"
+  },
+  "bugs": {
+    "url": "https://github.com/eric8ah/freeCodeCamp-urlProject/issues"
+  },
+  "homepage": "https://github.com/eric8ah/freeCodeCamp-urlProject#readme",
+  "description": ""
 }
