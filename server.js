@@ -77,12 +77,8 @@ app.get('/*', function(req, res) {
                 console.log('Short URL exists');
                 response = webpage;
                 console.log('should redirect now to ' + response);
-                if (webpage.indexOf('http' === 0)) {
-                    res.writeHead(302, {'Location': webpage});
-                } else {
-                    res.writeHead(302, {'Location': 'http://' + webpage});
-                    res.end();
-            } 
+                res.writeHead(302, {'Location': 'http://' + webpage});
+                res.end();
             } else {
                 console.log('Short URL does not exist');
                 response = {
