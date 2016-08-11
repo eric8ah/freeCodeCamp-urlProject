@@ -8,11 +8,13 @@ var path = require('path');
 var url = require('url');
 var validator = require('validator');
 var protocols = { protocols: ['http','https','ftp'], require_tld: true, require_protocol: false, require_valid_protocol: true, allow_underscores: false, host_whitelist: false, host_blacklist: false, allow_trailing_dot: false, allow_protocol_relative_urls: false };
+var Type = require('type-of-is');
 var urlID;
 var webpage;
 var response;
 var domain;
 
+//function to insert URL and short number document into DB if not already there
 var insertDocument = function(db, callback) {
     db.collection('urls').insertOne( 
         {
@@ -25,6 +27,7 @@ var insertDocument = function(db, callback) {
     });
 };
 
+//function to check database to see if URL already exists and pull that ID number
 var findUrls = function(db, callback) {
     var cursor = db.collection('urls').find({ "URL": webpage});
     cursor.each(function(err, doc) {
@@ -42,8 +45,26 @@ var findUrls = function(db, callback) {
     });
 };
 
+var findWebpage = function(db, callback) {
+    console.log(webpage);
+    var cursor = db.collection('urls').find({ "_id": Number(webpage)});
+    cursor.each(function(err, doc) {
+        if (err) {
+            return err;
+        } else if (doc !== null) {
+            console.dir(doc);
+            console.log('doc was found?');
+            urlID = doc._id;
+            webpage = doc.URL;
+        } else {
+            console.log('doc was not found?');
+            callback();
+        }
+    });
+};
 
 
+//get request
 app.get('/*', function(req, res) {
     MongoClient.connect(mongo_url, function(err, db) {
         if (err) {
@@ -51,14 +72,32 @@ app.get('/*', function(req, res) {
         } else {
             console.log('Connection established to', mongo_url);
     webpage = url.parse(req.url).pathname.split('/')[1];
-    if (validator.isURL(webpage, protocols) !== true) {
+    domain = req.get('host');
+    if (isNaN(webpage) === false) {
+        findWebpage(db, function() {
+            if(urlID !== undefined) {
+                console.log('Short URL exists');
+                response = webpage;
+                console.log('should redirect now to ' + response);
+                res.writeHead(302, {'Location': 'https://' + webpage});
+                res.end();
+            } else {
+                console.log('Short URL does not exist');
+                response = {
+                    "error": "Short URL not in Database"
+                    };
+                res.json(response);
+            }
+        });
+    } else if (validator.isURL(webpage, protocols) !== true) {
         response = {
             "error": "Invalid URL"
         };
         res.json(response);
     } else {
     urlID = undefined;
-    domain = req.get('host');
+    
+    //check to see if the URL from the request exists in the DB, if not insert it into DB
     findUrls(db, function() {
         if (urlID !== undefined) {
             console.log('Valid ID');
