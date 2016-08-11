@@ -16,5 +16,13 @@
     "url": "https://github.com/eric8ah/freeCodeCamp-urlProject/issues"
   },
   "homepage": "https://github.com/eric8ah/freeCodeCamp-urlProject#readme",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "assert": "^1.4.1",
+    "express": "^4.14.0",
+    "mongodb": "^2.2.5",
+    "type-of-is": "^3.4.0",
+    "url": "^0.11.0",
+    "validator": "^5.5.0"
+  }
 }

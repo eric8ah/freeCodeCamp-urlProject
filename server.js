@@ -4,11 +4,9 @@ var mongo_url = "mongodb://eric8ah:mySecretPass23@ds015962.mlab.com:15962/short-
 var mongodb = require('mongodb');
 var MongoClient = mongodb.MongoClient;
 var assert = require('assert');
-var path = require('path');
 var url = require('url');
 var validator = require('validator');
 var protocols = { protocols: ['http','https','ftp'], require_tld: true, require_protocol: false, require_valid_protocol: true, allow_underscores: false, host_whitelist: false, host_blacklist: false, allow_trailing_dot: false, allow_protocol_relative_urls: false };
-var Type = require('type-of-is');
 var urlID;
 var webpage;
 var response;
