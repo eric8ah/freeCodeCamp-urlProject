@@ -5,6 +5,7 @@ var mongodb = require('mongodb');
 var MongoClient = mongodb.MongoClient;
 var assert = require('assert');
 var url = require('url');
+var path = require('path');
 var validator = require('validator');
 var protocols = { protocols: ['http','https','ftp'], require_tld: true, require_protocol: false, require_valid_protocol: true, allow_underscores: false, host_whitelist: false, host_blacklist: false, allow_trailing_dot: false, allow_protocol_relative_urls: false };
 var urlID;
@@ -59,6 +60,20 @@ var findWebpage = function(db, callback) {
         }
     });
 };
+
+//handle blank get request
+app.get('/', function(req, res) {
+    var readme = path.join(__dirname, 'README.md');
+    res.sendFile(readme, function(err) {
+        if (err) {
+        console.log(err);
+        res.status(err.status).end();
+        }
+        else {
+            console.log('File was sent');
+        }
+    });
+});
 
 
 //get request
