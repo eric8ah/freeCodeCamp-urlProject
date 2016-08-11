@@ -44,7 +44,6 @@ var findUrls = function(db, callback) {
 };
 
 var findWebpage = function(db, callback) {
-    console.log(webpage);
     var cursor = db.collection('urls').find({ "_id": Number(webpage)});
     cursor.each(function(err, doc) {
         if (err) {
@@ -78,7 +77,7 @@ app.get('/*', function(req, res) {
                 console.log('Short URL exists');
                 response = webpage;
                 console.log('should redirect now to ' + response);
-                res.writeHead(302, {'Location': 'https://' + webpage});
+                res.writeHead(302, {'Location': webpage});
                 res.end();
             } else {
                 console.log('Short URL does not exist');
