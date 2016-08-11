@@ -71,6 +71,7 @@ app.get('/*', function(req, res) {
             console.log('Connection established to', mongo_url);
     webpage = url.parse(req.url).pathname.split('/')[1];
     domain = req.get('host');
+    urlID = undefined;
     if (isNaN(webpage) === false) {
         findWebpage(db, function() {
             if(urlID !== undefined) {
@@ -93,7 +94,6 @@ app.get('/*', function(req, res) {
         };
         res.json(response);
     } else {
-    urlID = undefined;
     
     //check to see if the URL from the request exists in the DB, if not insert it into DB
     findUrls(db, function() {
