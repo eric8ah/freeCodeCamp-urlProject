@@ -61,20 +61,6 @@ var findWebpage = function(db, callback) {
     });
 };
 
-//handle blank get request
-app.get('/', function(req, res) {
-    var readme = path.join(__dirname, 'README.md');
-    res.sendFile(readme, function(err) {
-        if (err) {
-        console.log(err);
-        res.status(err.status).end();
-        }
-        else {
-            console.log('File was sent');
-        }
-    });
-});
-
 
 //get request
 app.get('/*', function(req, res) {
@@ -86,7 +72,20 @@ app.get('/*', function(req, res) {
     webpage = url.parse(req.url).pathname.split('/')[1];
     domain = req.get('host');
     urlID = undefined;
-    if (isNaN(webpage) === false) {
+    
+    //handle homepage request 
+    if (webpage.length === 0) {
+        var readme = path.join(__dirname, 'README.md');
+        res.sendFile(readme, function(err) {
+        if (err) {
+        console.log(err);
+        res.status(err.status).end();
+        }
+        else {
+            console.log('File was sent');
+        }
+    });
+    } else if (isNaN(webpage) === false) {
         findWebpage(db, function() {
             if(urlID !== undefined) {
                 console.log('Short URL exists');
