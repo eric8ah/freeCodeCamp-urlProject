@@ -75,8 +75,8 @@ app.get('/*', function(req, res) {
     
     //handle homepage request 
     if (webpage.length === 0) {
-        var readme = path.join(__dirname, 'README.md');
-        res.sendFile(readme, function(err) {
+        var index = path.join(__dirname, 'index.html');
+        res.sendFile(index, function(err) {
         if (err) {
         console.log(err);
         res.status(err.status).end();

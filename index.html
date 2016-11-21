@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<head>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+
+<div ng-bind-html="trustedHtml" class="ng-binding"><h4 id="apibasejumpurlshortener">API Basejump: URL Shortener</h4>
+<p>By Eric Ochoa "eric8ah"</p>
+<p>For <a href="http://freecodecamp.com">Free Code Camp</a> - <a href="https://www.freecodecamp.com/challenges/url-shortener-microservice">Back-End Project: URL Shortener</a></p>
+<p>This is a microservice API project for freeCodeCamp. This will take a URL as a parameter and will return a json object with the original url and a shortened version
+of the URL. If the URL already exists in the database it will return the existing shortened url otherwise it will create a new random url and insert it into the database.
+If you go to the short url it will redirect you to it's corresponding website if it exists in the database, otherwise it will tell you that the short URL does not exist.</p>
+<h5 id="examplecreationusage">Example creation usage:</h5>
+<pre><code>https://eric8ah-short-url.herokuapp.com/www.google.com</code></pre>
+<h5 id="exampleoutput">Example output</h5>
+<pre><code>{"original_url":"www.google.com","short_url":"eric8ah-short-url.herokuapp.com/275"}</code></pre>
+<h5 id="usage">Usage</h5>
+<pre><code>https://eric8ah-short-url.herokuapp.com/275</code></pre>
+<h5 id="willredirectto">Will redirect to:</h5>
+<pre><code>https://www.google.com</code></pre>
+<h5 id="livesite">Live Site</h5>
+<p><a href="https://eric8ah-short-url.herokuapp.com/">https://eric8ah-short-url.herokuapp.com/</a></p></div>
